@@ -1,0 +1,10 @@
+---
+- name: Configure VM with containerized services
+  hosts: vm
+  become: true
+
+  roles:
+    - docker
+    - postgres
+    - keycloak
+    - webserver

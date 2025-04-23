@@ -1,0 +1,21 @@
+---
+- name: Create web content directory
+  file:
+    path: /opt/web
+    state: directory
+
+- name: Add static HTML page
+  copy:
+    dest: /opt/web/index.html
+    content: "<h1>Welcome to Choco’s Web Server 🎉</h1>"
+
+- name: Run web server container (nginx)
+  community.docker.docker_container:
+    name: webserver
+    image: nginx:latest
+    state: started
+    restart_policy: always
+    volumes:
+      - /opt/web:/usr/share/nginx/html:ro
+    ports:
+      - "80:80"

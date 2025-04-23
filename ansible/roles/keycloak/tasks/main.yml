@@ -1,0 +1,17 @@
+---
+- name: Run Keycloak container
+  community.docker.docker_container:
+    name: keycloak
+    image: quay.io/keycloak/keycloak:24.0.2
+    state: started
+    restart_policy: always
+    env:
+      KEYCLOAK_ADMIN: chocoadmin
+      KEYCLOAK_ADMIN_PASSWORD: Bumiljac1.
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloakpass
+    ports:
+      - "8080:8080"
+    command: ["start-dev"]

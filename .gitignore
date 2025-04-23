@@ -1,0 +1,15 @@
+# Ignore all files in the .terraform directory
+terraform/.terraform/
+
+# Ignore all Terraform provider binaries (recursively)
+terraform/.terraform/providers/
+
+# Ignore any other temporary or large files
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Ignore system files
+.DS_Store
+Thumbs.db
