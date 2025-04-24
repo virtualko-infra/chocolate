@@ -46,7 +46,7 @@ jobs:
         run: |
           terraform output -json > tf_output.json
           cat tf_output.json
-          PUBLIC_IP=$(jq -r '.public_ip.value' tf_output.json)
+          PUBLIC_IP=$(jq -r '.vm_public_ip.value' tf_output.json)
           echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
 
       - name: List files for debugging
