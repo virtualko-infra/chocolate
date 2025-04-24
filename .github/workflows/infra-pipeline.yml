@@ -49,8 +49,8 @@ jobs:
 
       - name: Update Ansible Inventory
         run: |
-              sed -i "s/^host=.*/host=$PUBLIC_IP/" inventory.ini
-              cat inventory.ini
+              sed -i "s/^host=.*/host=$PUBLIC_IP/" /ansible/inventory.ini
+              cat /ansible/inventory.ini
 
   configure:
     name: Configure Infrastructure
