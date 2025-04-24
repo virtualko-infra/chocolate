@@ -44,19 +44,15 @@ jobs:
       - name: Extract VM Public IP from Terraform Output
         id: tf_output
         run: |
+              cd ./terraform
               PUBLIC_IP=$(terraform output -raw vm_public_ip)
               echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
               echo "VM Public IP: $PUBLIC_IP"
 
-      - name: Debug file structure
+      - name: Update Ansible Inventory
         run: |
-              echo "Current dir: $(pwd)"
-              ls -R
-
-      - name: Update Ansible inventory
-        run: |
+              echo "Using IP: $PUBLIC_IP"
               sed -i "s/^host=.*/host=$PUBLIC_IP/" ansible/inventory.ini
-              echo "Updated inventory:"
               cat ansible/inventory.ini
 
 
