@@ -73,7 +73,7 @@ jobs:
         working-directory: ansible
         run: ansible-playbook -i "${{ env.PUBLIC_IP }}," site.yml
         env:
-        ANSIBLE_HOST_KEY_CHECKING: "false"
+            ANSIBLE_HOST_KEY_CHECKING: "false"
 
   disassemble:
     name: Disassemble Infrastructure
