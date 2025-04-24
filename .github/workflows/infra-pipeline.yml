@@ -41,20 +41,17 @@ jobs:
               cd ./terraform
               terraform apply -auto-approve
 
-      - name: Extract VM Public IP from Terraform Output
-        id: tf_output
+      - name: Extract VM Public IP from Terraform Output and Update Inventory
         run: |
-          cd ./terraform
+          # Get the public IP of the VM from Terraform
           PUBLIC_IP=$(terraform output -raw vm_public_ip)
-          echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
-          echo "VM Public IP: $PUBLIC_IP" # For debugging only
+          echo "VM Public IP: $PUBLIC_IP"
 
+          #  Update the inventory.ini file with the new public IP
+          sed -i "s/^host=.*/host=$PUBLIC_IP/" ansible/inventory.ini
 
-      - name: Update Ansible Inventory
-        run: |
-              echo "Using IP: $PUBLIC_IP"
-              sed -i "s/^host=.*/host=$PUBLIC_IP/" ansible/inventory.ini
-              cat ansible/inventory.ini
+          # Verify the updated inventory.ini
+          cat ansible/inventory.ini
 
 
   configure:
