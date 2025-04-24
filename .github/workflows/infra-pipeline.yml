@@ -24,12 +24,11 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.5.0
-
-      - name: Initialize Terraform
-        run: terraform init
-
-      - name: Plan Terraform
-        run: terraform plan
+      - name: Terraform Plan
+        run: |
+            cd ./terraform/
+            terraform init
+            terraform plan
         
       - name: Apply Terraform
         run: terraform apply -auto-approve
