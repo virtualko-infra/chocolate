@@ -45,9 +45,9 @@ jobs:
         id: tf_output
         run: |
               cd ./terraform
+              echo "Fetching VM public IP from Terraform output..."
               PUBLIC_IP=$(terraform output -raw vm_public_ip)
               echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
-              echo "VM Public IP: $PUBLIC_IP"
 
       - name: Update Ansible Inventory
         run: |
