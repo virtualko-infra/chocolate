@@ -41,23 +41,23 @@ jobs:
               cd ./terraform
               terraform apply -auto-approve
 
-      - name: Get Terraform Output
+      - name: Extract VM Public IP from Terraform Output
         id: tf_output
         run: |
-              terraform output -json > tf_output.json
-              cat tf_output.json
-              PUBLIC_IP=$(jq -r '.vm_public_ip.value' tf_output.json)
+              PUBLIC_IP=$(terraform output -raw vm_public_ip)
               echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
+              echo "VM Public IP: $PUBLIC_IP"
 
-      - name: List files for debugging
-        run: |
-              echo "Current directory: $(pwd)"
-              ls -R
+        - name: Debug file structure
+          run: |
+                echo "Current dir: $(pwd)"
+                ls -R
 
-      - name: Update Ansible Inventory
-        run: |
-              sed -i "s/^host=.*/host=$PUBLIC_IP/" ansible/inventory.ini
-              cat ansible/inventory.ini
+        - name: Update Ansible inventory
+          run: |
+                sed -i "s/^host=.*/host=$PUBLIC_IP/" ansible/inventory.ini
+                echo "Updated inventory:"
+                cat ansible/inventory.ini
 
 
   configure:
