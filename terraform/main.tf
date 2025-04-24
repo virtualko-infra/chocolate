@@ -78,7 +78,7 @@ resource "azurerm_linux_virtual_machine" "vm_linux_01" {
 
   admin_ssh_key {
     username   = "chocoadmin"
-    public_key = file("./dusan.pub")
+    public_key = file("./.ssh/dusan.pub")
   }
 
   os_disk {
