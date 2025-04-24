@@ -44,9 +44,14 @@ jobs:
       - name: Get Terraform Output
         id: tf_output
         run: |
-          terraform output -json > tf_output.json
-          PUBLIC_IP=$(jq -r '.public_ip.value' tf_output.json)
-          echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
+              terraform output -json > tf_output.json
+              PUBLIC_IP=$(jq -r '.public_ip.value' tf_output.json)
+              echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
+
+      - name: Update Ansible Inventory
+        run: |
+              sed -i "s/^host=.*/host=$PUBLIC_IP/" inventory.ini
+              cat inventory.ini
 
   configure:
     name: Configure Infrastructure
