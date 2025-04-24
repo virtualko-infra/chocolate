@@ -36,8 +36,10 @@ jobs:
             terraform init
             terraform plan
         
-      - name: Apply Terraform
-        run: terraform apply -auto-approve
+      - name: Terraform Apply
+        run: |
+              cd ./terraform
+              terraform apply -auto-approve
 
       - name: Get Terraform Output
         id: tf_output
