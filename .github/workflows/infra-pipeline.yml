@@ -45,8 +45,7 @@ jobs:
         id: tf_output
         run: |
               terraform output -json > tf_output.json
-              PUBLIC_IP=$(jq -r '.public_ip.value' tf_output.json)
-              echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
+              cat tf_output.json 
 
       - name: Update Ansible Inventory
         run: |
