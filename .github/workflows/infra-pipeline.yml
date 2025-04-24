@@ -70,7 +70,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Run Ansible Playbook
-        run: ansible-playbook -i ${{ env.PUBLIC_IP }}, playbook.yml
+        run: ansible-playbook -i ${{ env.PUBLIC_IP }}, site.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: "false" # Disable host key checking for simplicity
 
